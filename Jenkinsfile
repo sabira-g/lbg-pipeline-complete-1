@@ -1,6 +1,6 @@
 pipeline{
  environment {
- registry = "victorialloyd/vat-calculator-demo"
+ registry = "sgdamji/vat-calculator-demo"
         registryCredentials = "dockerhub_id"
         dockerImage = ""
     }
@@ -8,20 +8,20 @@ pipeline{
         stages {
             stage('Checkout Code') {
                 steps {
-                // Get some code from a GitHub repository
-                git branch: 'main', url: 'https://github.com/QA-Instructor/lbg-pipeline-complete-1.git'
+                    // Get some code from a GitHub repository
+                    git branch: 'main', url: 'https://github.com/sabira-g/lbg-pipeline-complete-1.git'
                 }
             }
             stage('Install Dependencies') {
                 steps {
-                // Install the ReactJS dependencies
-                sh "npm install"
+                    // Install the ReactJS dependencies
+                    sh "npm install"
                 }
             }
             stage('Run Tests') {
                 steps {
-                // Run the ReactJS tests
-                sh "npm test"
+                    // Run the ReactJS tests
+                    sh "npm test"
                 }
             }
             stage('SonarQube Analysis') {
@@ -72,7 +72,7 @@ pipeline{
                     script {
                         sshPublisher(publishers: [sshPublisherDesc(configName: 'targetDeploymentServer', 
                         transfers: [sshTransfer(cleanRemote: false, excludes: '', 
-                        execCommand: 'docker pull victorialloyd/vat-calculator-demo:latest', 
+                        execCommand: 'docker pull sgdamji/vat-calculator-demo:latest', 
                         execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, 
                         patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', 
                         sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, 
@@ -85,7 +85,7 @@ pipeline{
                     script {
                         sshPublisher(publishers: [sshPublisherDesc(configName: 'targetDeploymentServer', 
                         transfers: [sshTransfer(cleanRemote: false, excludes: '', 
-                        execCommand: 'docker run --name deployed-vat-calc -d -p 8000:80 victorialloyd/vat-calculator-demo:latest', 
+                        execCommand: 'docker run --name deployed-vat-calc -d -p 8000:80 sgdamji/vat-calculator-demo:latest', 
                         execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, 
                         patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', 
                         sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, 
